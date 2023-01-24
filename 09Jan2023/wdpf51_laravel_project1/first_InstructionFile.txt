@@ -1,0 +1,48 @@
+
+Check the PHP(php.ini):########################
+1. bcmath
+2. ctype
+3. extension
+4. mbstring
+5. pdo_mysql
+6. xmlrpc
+
+############# Laravel installation #############
+1. composer create-project --prefer-dist laravel/laravel:^7.0 wdpf51_laravel_project1
+2. cd wdpf51_laravel_project1
+3. php artisan
+##Controller:
+4. php artisan make:controller HomeController
+5. php artisan route:list
+6. php artisan make:migration products
+7. php artisan migrate
+8. php artisan migrate --refresh
+
+##Model:
+9. php artisan make:model product 
+
+#################### Setting ##############
+1. create database on mysql wdpf51_laravel_project1
+2. .env=>wdpf51_laravel_project1
+3. welcome.blade.php=>html template
+
+################### file type ###############
+###=>web.php:
+	1. Route::get('/', 'HomeController@index');
+
+###=>welcome.blade.php:
+	1. <h1>Welcome to Laravel</h1>
+
+###=>HomeController.php:
+	1.  public function index()
+    {
+        return view('backend/pages/admin_home');
+    }
+
+######### Backend ##############
+1. wdpf51_laravel_project1->template(demo2)->src->html->index.html
+2. index.html->admin_home.blade.php(rename)->href/src(add assets) for css link 
+3. html(assets,js,css)->public->assets(assets,js,css)
+4. app->resource->views->backend->layouts(app.blade.php), pages(admin_home.blade.php)
+5. pages(admin_home.blade.php)->sidebar(cut and move to left_sidebar)->app.blade.php->(@include("backend.layouts.left_sidebar")
+6. 

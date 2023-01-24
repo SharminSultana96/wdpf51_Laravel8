@@ -1,0 +1,8 @@
+
+########### create Authentication ###############
+1. composer create-project laravel/laravel:^8.0 laravel8_auth
+2. composer require laravel/jetstream
+3. php artisan jetstream:install livewire
+4. npm install
+5. npm run dev
+6. php artisan migrate

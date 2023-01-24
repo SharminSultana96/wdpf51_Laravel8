@@ -1,0 +1,21 @@
+
+########### create Authentication(Laravel 8.6) ###############
+1. composer create-project laravel/laravel wdpf51_laravel8_jetstream_auth
+2. cd wdpf51_laravel8_jetstream_auth
+3. composer require laravel/jetstream
+4. php artisan jetstream:install livewire
+5. npm install
+6. npm run dev
+7. .env Database Configuration
+8. php artisan migrate
+
+
+
+#################### ERROR CORRECTION #################
+
+1. resources->views->layouts->app.blade.php and guest.blade.php
+	
+	=>  <!-- Scripts -->
+       // @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('js/app.js') }}" defer></script>

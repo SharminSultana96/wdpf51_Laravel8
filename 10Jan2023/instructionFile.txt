@@ -1,0 +1,31 @@
+			
+			Laravel 8
+=====================================================
+1. composer install/update
+2. env create and db connection
+3. php artisan key:generate
+4. php artisan migrate
+5. php artisan db:seed
+6. version: php artisan --v
+7. php artisan migrate:refresh
+
+
+###################### Create Project #################
+1. composer create-project laravel/laravel:^8.0 wdpf51_laravel_pr2
+2. composer create-project laravel/laravel:8.5.0 wdpf51_laravel_pr3
+
+Product Table:
+3. php artisan make:model Product -mcr
+4. php artisan make:seeder ProductSeeder
+5. php artisan db:seed
+
+create factory:
+6. php artisan make:factory ProductFactory --model=Product
+7. php artisan migrate:fresh --seed
+8. php artisan db:seed
+
+####################### Create Controller ###############
+
+9. php artisan make:controller DashboardController
+10. php artisan route:list
+
