@@ -1,0 +1,10 @@
+
+			Laravel Voyager
+		###################################
+
+1. composer create-project laravel/laravel laravel8_voyager
+2. cd laravel8_voyager
+3. composer require tcg/voyager
+4. php artisan voyager:install // php artisan voyager:install --with-dummy
+5. php artisan serve
+6. php artisan migrate:rollback/ php artisan migrate:reset/ php artisan db:wipe
