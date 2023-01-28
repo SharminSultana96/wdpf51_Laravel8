@@ -1,0 +1,15 @@
+
+https://classroom.google.com/c/NDg0ODUzNTUxMTY5/p/NTEyNjE0OTAxODMy/details
+
+			Query Builder
+	=============================
+
+1. composer require barryvdh/laravel-debugbar --dev
+2. php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+
+
+
+===================
+1. config->app.php=>
+	'aliases' => ['Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,],
+

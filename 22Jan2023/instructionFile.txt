@@ -129,7 +129,7 @@ create factory:
 
 14. resources->views->auth->login.blade.php
 	 => <form method="post" action="{{url('/login')}}" class="form-validate is-alter" autocomplete="off">
-                                    @csrf
+              @csrf
 
 
 		</form>
