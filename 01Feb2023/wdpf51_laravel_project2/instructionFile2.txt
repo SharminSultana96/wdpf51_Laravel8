@@ -1,0 +1,5 @@
+
+************* data table ************
+1. php artisan make:model Phone -mc
+2. php artisan migrate 
+3. php artisan migrate:fresh --seed
