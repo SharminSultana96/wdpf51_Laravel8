@@ -1,0 +1,20 @@
+1. php artisan tinker
+$user = new App\Models\User;
+=		{#4545}
+
+$user->email = 'sharmin123@gmail.com';
+=
+
+$user->password = bcrypt('sharmin123');
+=
+
+$user->name = 'Sharmin';
+=
+
+$user->save();
+=true
+
+$user->get();
+
+
+2. $posts = App\Models\Post::find(1);

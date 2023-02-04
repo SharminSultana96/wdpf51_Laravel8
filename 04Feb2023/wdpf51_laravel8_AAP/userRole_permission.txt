@@ -1,0 +1,54 @@
+
+			User Role and Permission
+1. composer create-project laravel/laravel wdpf51_laravel8_AAP
+2. cd wdpf51_laravel8_AAP
+3. php artisan key:generate
+4. create database & setup env file
+5. composer require spatie/laravel-permission
+6. composer require laravelcollective/html
+7. config->app.php=>
+	'providers' => [
+	Spatie\Permission\PermissionServiceProvider::class,
+	],
+8. php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+9. php artisan migrate
+10. php artisan make:migration create_products_table
+11. php artisan make:model Product -cr
+12. app->Models->Product.php=>
+  	protected $fillable = [
+        	'name', 'detail'
+    	];
+13. app->Http->Kernel.php=>
+	'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+    	'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+    	'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+
+14. composer require laravel/ui
+15. php artisan ui bootstrap --auth
+16. npm install
+17. npm run dev
+18. php artisan make:controller UserController
+19. app->Http->Controllers->UserController.php=>
+20. app->Http->Controllers->ProductController.php=>
+21.php artisan make:controller RoleController
+22. app->Http->Controllers->RoleController.php=>
+23. resources->views->layouts->app.blade.php // resources->views->users->index,create,edit,show
+24. resources->views->products->index,create,edit,show // resources->views->roles->index,create,edit,show
+25. php artisan make:seeder PermissionTableSeeder
+26. php artisan db:seed --class=PermissionTableSeeder
+27. php artisan make:seeder CreateAdminUserSeeder
+28. php artisan db:seed --class=CreateAdminUserSeeder
+29. php artisan serve
+30. resources->routes->web.php=>
+	use App\Http\Controllers\RoleController;
+	use App\Http\Controllers\UserController;
+	use Illuminate\Support\Facades\Auth;
+	use Illuminate\Support\Facades\Route;
+
+	Route::group(['middleware' => ['auth']], function() {
+    	Route::resource('roles', RoleController::class);
+    	Route::resource('users', UserController::class);
+    	Route::resource('products', ProductController::class);
+});
+
+31. npx mix
