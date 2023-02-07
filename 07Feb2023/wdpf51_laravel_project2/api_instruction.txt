@@ -1,0 +1,13 @@
+
+
+
+1. php artisan make:controller Api\DogsController --api
+2. php artisan make:model Dog --migration
+3. $table->id();
+            $table->string('name');
+            $table->id('color');
+            $table->timestamps();
+
+
+  Route::apiResource('dogs', DogsController::class);
+    Route::resource('products', ProductController::class);

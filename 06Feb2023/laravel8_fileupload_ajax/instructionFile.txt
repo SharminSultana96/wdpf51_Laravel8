@@ -1,0 +1,31 @@
+
+		File/Image Upload with Ajax
+	===========================================
+
+1. composer create-project laravel/laravel laravel8_fileupload_ajax
+2. cd laravel8_fileupload_ajax
+3. php artisan make:model Image -mc
+4. php artisan migrate
+5. auto showing image remove:
+	 if (response) {
+            this.reset();
+            $('#preview-image').attr('src', ''); 
+            alert('Image has been uploaded successfully');
+         }
+
+6. storage image:
+	public function store(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        	$imageName = time().'.'.$request->image->extension();  
+        	$request->image->storeAs('images', $imageName);
+        	Image::create(['name' => $imageName]);
+        	return response()->json('Image uploaded successfully');
+    }
+
+7. php artisan storage:link
+
+8. image shortcut storage upload:
+	 $request->image->storeAs('public', $imageName);

@@ -1,0 +1,88 @@
+
+		Mailing using Laravel
+	======================================
+
+1. env=> 
+	MAIL_HOST=smtp.gmail.com 
+	MAIL_PORT=465
+	MAIL_USERNAME=sharminsultana9888@gmail.com
+	MAIL_PASSWORD=oyjubgotdjvosyra
+	MAIL_ENCRYPTION=ssl
+	MAIL_FROM_ADDRESS=sharminsultana9888@gmail.com
+
+2. php artisan make:mail DemoMail
+3. app->Mail->DemoMail.php=>
+		<?php
+  
+namespace App\Mail;
+  
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+  
+class DemoMail extends Mailable
+{
+    use Queueable, SerializesModels;
+  
+    public $mailData;
+  
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    // public function __construct($mailData)
+    // {
+    //     $this->mailData = $mailData;
+    // }
+  
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        // return $this->view('view.name')
+        return $this->subject('Mail from TCLD')
+                    ->view('emails.examMail');
+    }
+}
+
+4. php artisan make:controller MailController
+
+5. app->Http->Controllers=>
+		<?php
+  
+namespace App\Http\Controllers;
+  
+use Illuminate\Http\Request;
+// use Mail;
+use App\Mail\DemoMail;
+use Illuminate\Support\Facades\Mail;
+
+class MailController extends Controller
+{
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function index()
+    {
+        // $mailData = [
+        //     'title' => 'Exam is on 27 February',
+        //     'body' => 'This is for testing email using smtp.'
+        // ];
+         
+        // Mail::to('aklimaakterisdb@gmail.com')->send(new DemoMail($mailData));
+        Mail::to('jannatflowers3@gmail.com')->send(new DemoMail());
+           
+        dd("Email is sent successfully.");
+    }
+}
+
+6.
+		
+	

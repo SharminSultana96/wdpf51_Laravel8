@@ -1,0 +1,240 @@
+
+		One To Many Relationship
+	=========================================
+
+1. php artisan make:model post -mc
+2. php artisan make:model comment -mc
+
+Post migration Table:
+======================
+Schema::create('posts', function (Blueprint $table) {
+
+    $table->increments('id');
+
+    $table->string("name");
+
+    $table->timestamps();
+
+});
+
+Comments table migration:
+==========================
+Schema::create('comments', function (Blueprint $table) {
+
+    $table->increments('id');
+    $table->integer('post_id')->unsigned();
+    $table->string("comment");
+    $table->timestamps();
+    $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+
+});
+
+
+Post Model:
+===========
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+
+class Post extends Model
+{
+    /**
+     * Get the comments for the blog post.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+}
+
+
+Comment Model:
+=================
+
+<?php
+
+
+namespace App;
+
+
+use Illuminate\Database\Eloquent\Model;
+
+
+class Comment extends Model
+{
+    /**
+     * Get the post that owns the comment.
+     */
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+}
+
+3. php artisan migrate
+
+
+4. Database seeder:
+
+// post seeder
+for ($i = 1; $i <= 15; $i++) {
+$post = new Post();
+$post->name = Str::random(10);
+
+$post->save();
+}
+for ($i = 1; $i <= 50; $i++) {
+$comment = new Comment();
+$comment->post_id = rand(1, 15);
+$comment->comment = Str::random(10);
+
+$comment->save();
+}
+
+5. PostController:
+public function index()
+{
+//$post = Post::find(1);
+//$comments = $post->comments;
+//dd($comments);
+
+$post = Post::get();
+
+return view('post.index', compact('post'))
+
+6. resources->views->post=>index.blade.php
+
+<body>
+@foreach ($posts as $post)
+<p>{{$post->name}}</p>
+<ul>
+@foreach ($post->comments as $comment)
+	<li>{{$comment->comment}}</li>
+@endforeach
+</ul>
+@endforeach
+
+
+		Many To Many Relationship
+	=============================================
+
+7. Role table migration: =>php artisan make:model Role -mc
+8. Role table migration: =>php artisan make:model RoleUser -mc
+
+9. Role table migration:
+=========================
+  Schema::create('roles', function (Blueprint $table) {
+    $table->increments('id');
+    $table->string('name');
+    $table->timestamps();
+  });
+
+10. Role User table migration:
+=================================
+   Schema::create('role_user', function (Blueprint $table) {
+
+     $table->integer('user_id')->unsigned();
+
+     $table->integer('role_id')->unsigned();
+
+     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+     $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+
+  });
+
+11. User Model:
+=================
+<?php
+ 
+namespace App;
+ 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+ 
+class User extends Authenticatable
+{
+    use Notifiable;
+ 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+ 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+ 
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_users');
+    }
+}
+
+12. Role Model:
+=================
+<?php
+ 
+namespace App;
+ 
+use Illuminate\Database\Eloquent\Model;
+ 
+class Role extends Model
+{
+    /**
+     * The users that belong to the role.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'role_users');
+    }
+}
+
+13. UserController:
+=======================
+
+public function phoneData()
+{
+$phone = Phone::find(1);
+echo "Phone ID: " . $phone->id;
+echo "<br>" . $phone->user->name;
+echo $phone->user->name;
+echo "<br>";
+
+}
+
+public function roleAssign()
+{
+$user = User::find(1);
+$roleIds = [1, 2];
+$user->roles()->attach($userIds);
+
+}
+
+public function roleAssign()
+{
+$user = User::find(1);
+$roleIds = [1, 2];
+$user->roles()->detach($userIds);
+
+}
+
+
+14. routes=> Route::get('/posts', [PostController::class, 'index'])
+	     Route::get('/roles', [PostController::class, 'roleAssign'])
+	     Route::get('/roleses', [PostController::class, 'roleAssignn'])
